@@ -1,49 +1,59 @@
-package Step_Definitions;
+package com.hilti.ta.steps;
 
+import com.hilti.ta.pages.Homepage;
+import com.hilti.ta.utils.Country;
+import com.hilti.ta.utils.WebDriverFactory;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.jcp.xml.dsig.internal.SignerOutputStream;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class StepDefs {
+public class AddToCart_YEDEK{
+    private final Homepage homepage = new Homepage();
 
-    private WebDriver driver = Driver.getDriver();
-    private final String baseURL = "https://www.hilti.com/";
-    private final String baseURLca = "https://www.hilti.ca/";
-    private static String country = "";
+    private WebDriver driver = WebDriverFactory.getDriver();
+    //    private final String baseURL = "https://www.hilti.com/";
+//    private final String baseURLca = "https://www.hilti.ca/";
+//    private static String country = "";
     public static List<Map<String, String>> lst = new LinkedList<>();
 
-    @Given("User opens Hilti website for country {string}")
-    public void user_opens_hilti_website_for_country(String country) {
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-
-        StepDefs.country = country;
-        if (country.equalsIgnoreCase("US")){
-            driver.get(baseURL);
-            WebElement policy = driver.findElement(By.xpath("//button[@name='primary']"));
-            if (policy.isDisplayed()) {
-                policy.click();
-            }
-        }else if(country.equalsIgnoreCase("CA")){
-            driver.get("https://www.hilti.ca");
-        }else{
-            System.out.println("country unknown");
-        }
-
-    }
+//    @Given("User opens Hilti website for country {string}")
+//    public void user_opens_hilti_website_for_country(String country) {
+//        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+//        driver.manage().window().maximize();
+//
+//        AddToCart.country = country;
+//        if (country.equalsIgnoreCase("US")){
+//            driver.get(baseURL);
+//            WebElement policy = driver.findElement(By.xpath("//button[@name='primary']"));
+//            if (policy.isDisplayed()) {
+//                policy.click();
+//            }
+//        }else if(country.equalsIgnoreCase("CA")){
+//            driver.get("https://www.hilti.ca");
+//        }else{
+//            System.out.println("country unknown");
+//        }
+//
+//    }
+//
+//    @When("User navigates to product page for {string}")
+//    public void user_navigates_to_product_page_for(String product_code) {
+//
+//        if(country.contentEquals("CA")){
+//            driver.get(baseURLca+product_code);
+//        }else{
+//            driver.get(baseURL+product_code);
+//        }
+//    }
 
     @When("User navigates to product page for {string}")
     public void user_navigates_to_product_page_for(String product_code) {
-
-        if(country.contentEquals("CA")){
-            driver.get(baseURLca+product_code);
-        }else{
-            driver.get(baseURL+product_code);
-        }
+        driver.get(driver.getCurrentUrl()+"/"+product_code);
     }
 
     @When("User adds to cart products with following properties")
@@ -67,14 +77,20 @@ public class StepDefs {
 
     }
 
+//    @When("User navigates to cart page")
+//    public void user_navigates_to_cart_page() {
+//
+//        if(country.contentEquals("CA")){
+//            driver.get(baseURLca+"cart");
+//        }else{
+//            driver.get(baseURL+"cart");
+//        }
+//    }
+
     @When("User navigates to cart page")
     public void user_navigates_to_cart_page() {
+        driver.findElement(By.xpath("//span[text()='Shopping Cart']")).click();
 
-        if(country.contentEquals("CA")){
-            driver.get(baseURLca+"cart");
-        }else{
-            driver.get(baseURL+"cart");
-        }
     }
 
     @Then("User can see the products above are added to cart with proper quantities")
