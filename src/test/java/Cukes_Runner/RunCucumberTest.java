@@ -1,3 +1,5 @@
+package Cukes_Runner;
+
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
@@ -10,9 +12,9 @@ import org.junit.runner.RunWith;
                 "json:target/site/cucumber-pretty",
                 "rerun:target/rerun.txt"
                 },
-        features = {"src/test/resources/AddToCart.feature"},
-        glue = {"StepDef.java"},
-        dryRun = true
+        features = {"src/test/resources/features/AddToCart.feature"},
+        glue = {"Step_Definitions"},
+        dryRun = false
 )
 public class RunCucumberTest {
 }
