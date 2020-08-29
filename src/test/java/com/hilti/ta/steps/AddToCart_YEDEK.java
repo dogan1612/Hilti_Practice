@@ -13,6 +13,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class AddToCart_YEDEK{
+  /*
     private final Homepage homepage = new Homepage();
 
     private WebDriver driver = WebDriverFactory.getDriver();
@@ -109,6 +110,8 @@ public class AddToCart_YEDEK{
             Assert.assertEquals("Quantity not verified!", lst.get(i-1).get("quantity").trim(), quantity);
         }
     }
+    */
+
 }
 
 

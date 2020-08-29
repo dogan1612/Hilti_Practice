@@ -1,3 +1,4 @@
+@Smoke
 Feature: Add to cart on Product Page
 
   Scenario Outline: Add product to cart and verify cart content

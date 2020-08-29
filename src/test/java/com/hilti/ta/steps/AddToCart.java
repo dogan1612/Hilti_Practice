@@ -3,8 +3,12 @@ package com.hilti.ta.steps;
 import com.hilti.ta.utils.WebDriverFactory;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
+
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
 import java.util.*;
 
 public class AddToCart{
@@ -38,8 +42,10 @@ public class AddToCart{
 
     @When("User navigates to cart page")
     public void user_navigates_to_cart_page() {
-        driver.findElement(By.xpath("//span[text()='Shopping Cart']")).click();
-
+        WebElement cart = driver.findElement(By.xpath("//span[text()='Shopping Cart']"));
+        WebDriverWait wait = new WebDriverWait(driver, 15);
+        wait.until(ExpectedConditions.elementToBeClickable(cart));
+        cart.click();
     }
 
     @Then("User can see the products above are added to cart with proper quantities")
@@ -54,8 +60,8 @@ public class AddToCart{
             quantity = driver.findElement(By.xpath("(//tbody[contains(@id,'NORMAL')]/tr[contains(@class,'row-main')])["+i+"]//td[6]//input[@name='quantity']")).getAttribute("value");
 
             Assert.assertTrue(color.contains(lst.get(i-1).get("cartridge color").toLowerCase()));
-            Assert.assertEquals("Pack size not verified!", lst.get(i-1).get("pack size").trim(), packSize);
-            Assert.assertEquals("Quantity not verified!", lst.get(i-1).get("quantity").trim(), quantity);
+            Assert.assertEquals(lst.get(i-1).get("pack size").trim(), packSize);
+            Assert.assertEquals(lst.get(i-1).get("quantity").trim(), quantity);
         }
     }
 }
